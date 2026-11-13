@@ -54,7 +54,7 @@ export const apps: AppLink[] = [
     name: "DER",
     description: "MBL Draught Empty Return",
     url: "https://der.myanmar-brewery.com/",
-    logo: "/icons/sim.jpg",
+    logo: "/icons/keg.jpg",
     accent: "#24292f",
   },
 ]
