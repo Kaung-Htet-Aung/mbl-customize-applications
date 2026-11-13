@@ -1,0 +1,234 @@
+.card {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(10px, 1.6vh, 14px);
+  height: 100%;
+  min-height: 168px;
+  padding: clamp(16px, 2vw, 22px);
+  overflow: hidden;
+  color: var(--foreground);
+  text-align: center;
+  text-decoration: none;
+  background:
+    var(--glass-sheen),
+    radial-gradient(
+      120% 100% at 15% 0%,
+      color-mix(in srgb, var(--accent) 26%, transparent),
+      transparent 55%
+    ),
+    var(--glass-tint);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow:
+    var(--glass-shadow),
+    inset 0 1px 0 var(--glass-highlight),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  transition:
+    transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      90% 70% at 20% 0%,
+      rgba(255, 255, 255, 0.5),
+      transparent 55%
+    ),
+    linear-gradient(
+      115deg,
+      transparent 50%,
+      rgba(255, 255, 255, 0.16) 68%,
+      transparent 82%
+    );
+  border-radius: inherit;
+  opacity: 0.8;
+  transition:
+    opacity 220ms ease,
+    transform 300ms ease;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 -12px 28px -18px rgba(255, 255, 255, 0.5);
+}
+
+.card:focus-visible {
+  outline: 3px solid var(--primary-ring);
+  outline-offset: 4px;
+}
+
+.card:active {
+  transform: translateY(0) scale(0.985);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--primary) 55%, var(--glass-border));
+    box-shadow:
+      0 30px 64px -26px color-mix(
+        in srgb,
+        var(--primary) 50%,
+        rgba(15, 23, 42, 0.55)
+      ),
+      var(--glass-shadow),
+      inset 0 1px 0 var(--glass-highlight),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .card:hover::before {
+    opacity: 1;
+    transform: translate3d(4%, -4%, 0) scale(1.04);
+  }
+
+  .card:hover .logoFrame {
+    transform: translateY(-2px) scale(1.04);
+    border-color: color-mix(in srgb, var(--primary) 45%, var(--glass-border));
+    box-shadow:
+      inset 0 1px 0 var(--glass-highlight),
+      0 12px 24px -14px var(--primary-glow);
+  }
+}
+
+.logoFrame {
+  display: grid;
+  width: clamp(54px, 7vw, 66px);
+  height: clamp(54px, 7vw, 66px);
+  place-items: center;
+  background: var(--glass-sheen), var(--glass-tint-strong);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    0 10px 22px -16px rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.logo {
+  width: 70%;
+  height: 70%;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+.initials {
+  color: var(--accent);
+  font-size: 1.35rem;
+  font-weight: 750;
+  letter-spacing: -0.04em;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+  text-align: center;
+}
+
+.name {
+  color: var(--foreground);
+  font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+  font-weight: 650;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.description {
+  display: -webkit-box;
+  overflow: hidden;
+  min-height: 2.6em;
+  color: var(--muted);
+  font-size: clamp(0.72rem, 1vw, 0.8rem);
+  font-weight: 550;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+@media (prefers-color-scheme: dark) {
+  .card::before {
+    opacity: 0.35;
+    background:
+      radial-gradient(
+        90% 70% at 20% 0%,
+        rgba(255, 255, 255, 0.18),
+        transparent 55%
+      ),
+      linear-gradient(
+        115deg,
+        transparent 50%,
+        rgba(255, 255, 255, 0.06) 68%,
+        transparent 82%
+      );
+  }
+
+  .card::after {
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+      inset 0 -12px 28px -18px rgba(255, 255, 255, 0.16);
+  }
+}
+
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  .card {
+    background: color-mix(in srgb, var(--surface-strong) 88%, transparent);
+  }
+
+  .logoFrame {
+    background: var(--surface-strong);
+  }
+}
+
+@media (max-width: 599px) {
+  .card {
+    gap: 8px;
+    min-height: 150px;
+    padding: 14px 10px;
+    border-radius: 20px;
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+  }
+
+  .logoFrame {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    backdrop-filter: blur(8px) saturate(160%);
+    -webkit-backdrop-filter: blur(8px) saturate(160%);
+  }
+
+  .name {
+    font-size: 0.9rem;
+  }
+
+  .description {
+    min-height: 2.8em;
+    font-size: 0.7rem;
+  }
+}

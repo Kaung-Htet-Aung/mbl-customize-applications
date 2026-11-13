@@ -1,40 +1,113 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #dcece2;
+  --surface: rgba(255, 255, 255, 0.84);
+  --surface-strong: #ffffff;
+  --surface-subtle: #eef2f9;
+  --foreground: #0b1220;
+  --muted: #69748c;
+  --border: rgba(15, 23, 42, 0.09);
+  --shadow-sm:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 12px 30px -20px rgba(15, 23, 42, 0.25);
+  --shadow-lg:
+    0 2px 4px rgba(15, 23, 42, 0.04),
+    0 24px 48px -24px rgba(15, 23, 42, 0.34);
+  --accent: #6366f1;
+  --primary: #006838;
+  --primary-foreground: #f2fbf5;
+  --primary-soft: color-mix(in srgb, var(--primary) 22%, transparent);
+  --primary-glow: color-mix(in srgb, var(--primary) 40%, transparent);
+  --primary-ring: #006838;
+  --page-gutter: clamp(14px, 4vw, 48px);
+  --glass-tint: rgba(255, 255, 255, 0.28);
+  --glass-tint-strong: rgba(255, 255, 255, 0.46);
+  --glass-border: rgba(255, 255, 255, 0.58);
+  --glass-highlight: rgba(255, 255, 255, 0.85);
+  --glass-sheen: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.34),
+    rgba(255, 255, 255, 0.06) 58%
+  );
+  --glass-shadow:
+    0 24px 60px -24px rgba(15, 23, 42, 0.38),
+    0 4px 16px -8px rgba(15, 23, 42, 0.18);
+  --glass-blur: blur(24px) saturate(180%);
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #001f11;
+    --surface: rgba(6, 33, 20, 0.82);
+    --surface-strong: #0a2b1c;
+    --surface-subtle: #0e3524;
+    --foreground: #f2fbf5;
+    --muted: #9dc4b0;
+    --border: rgba(190, 230, 210, 0.15);
+    --shadow-sm:
+      0 1px 2px rgba(0, 0, 0, 0.2),
+      0 14px 34px -20px rgba(0, 0, 0, 0.65);
+    --shadow-lg:
+      0 2px 4px rgba(0, 0, 0, 0.22),
+      0 28px 54px -24px rgba(0, 0, 0, 0.7);
+    --glass-tint: rgba(255, 255, 255, 0.07);
+    --glass-tint-strong: rgba(255, 255, 255, 0.13);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-highlight: rgba(255, 255, 255, 0.32);
+    --glass-sheen: linear-gradient(
+      140deg,
+      rgba(255, 255, 255, 0.14),
+      rgba(255, 255, 255, 0.02) 58%
+    );
+    --glass-shadow:
+      0 28px 70px -28px rgba(0, 0, 0, 0.8),
+      0 4px 18px -10px rgba(0, 0, 0, 0.5);
+    --primary-ring: #3ecf8e;
+    color-scheme: dark;
   }
-}
-
-html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
   box-sizing: border-box;
-  padding: 0;
+}
+
+html {
+  min-height: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100%;
   margin: 0;
+  overflow-x: clip;
+  color: var(--foreground);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(0, 104, 56, 0.3), transparent 32rem),
+    radial-gradient(circle at 88% 10%, rgba(0, 104, 56, 0.18), transparent 30rem),
+    linear-gradient(160deg, #eaf6ee 0%, #c8e1d3 100%),
+    var(--background);
+  font-family:
+    var(--font-dm-sans),
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background:
+      radial-gradient(circle at 12% 0%, rgba(0, 104, 56, 0.42), transparent 32rem),
+      radial-gradient(circle at 88% 10%, rgba(0, 150, 80, 0.18), transparent 30rem),
+      linear-gradient(160deg, #006838 0%, #002814 100%),
+      var(--background);
+  }
+}
+
+button,
+input {
+  font: inherit;
 }
 
 a {
@@ -42,8 +115,29 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+::selection {
+  background: var(--primary-soft);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
